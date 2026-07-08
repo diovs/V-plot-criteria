@@ -23,6 +23,7 @@ criteria to distinguish TF-footprint-like V-plots from enzyme-bias controls:
 | `Fig2/` | Scripts and input tables for the revised Figure 2 panels, including the TF-vs-bias separation plots. |
 | `FigS1/`-`FigS3/` | Scripts and input files for supplementary figures. |
 | `FigS4-6/` | Single-panel V-plot plotting script for the revised Fig. S4-S6 montages. |
+| `FigS7/` | README for the assay-specific motif-logo-over-V-plot montage; component plotting logic is covered by FigS4-6 and FigS8. |
 | `FigS8/` | Scripts and small input files for the scrambled CTCF motif control. |
 | `V_plot_pipeline/` | Standalone pipeline for testing TF motif V-plots against enzyme-bias controls. |
 | `data_preprocessing.sh` | Fragment preprocessing helper script. |
