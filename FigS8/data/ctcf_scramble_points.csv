@@ -1,0 +1,37 @@
+assay,label,group,width,FC,log2FC,motif,seed,fit_source,display_label
+ATAC,CTCF,real CTCF,58.30581585211251,7.650074094205528,2.935473720985055,CTCF_ATAC_fragL_dist,,real,CTCF
+DNase,CTCF,real CTCF,27.61367626526648,8.322952564225652,3.057095414679148,CTCF_DNase_fragL_dist,,real,CTCF
+loMNase,CTCF,real CTCF,32.73390871924943,10.932546496967218,3.4505575792133087,CTCF_loMNase_fragL_dist,,real,CTCF
+ATAC,s0,shuffled CTCF,0.0,1.241523477811628,0.3121115438362544,CTCF_f9_s0_shuffled_ATAC_fragL_dist,0.0,full,scramble 1
+ATAC,s1,shuffled CTCF,0.0,1.1938584221689543,0.2556317597640809,CTCF_f9_s1_shuffled_ATAC_fragL_dist,1.0,full,scramble 4
+ATAC,s2,shuffled CTCF,0.0,1.1401198010148108,0.1891854272400454,CTCF_f9_s2_shuffled_ATAC_fragL_dist,2.0,full,scramble 2
+ATAC,s3,shuffled CTCF,0.0,1.268234115916368,0.3428210914509642,CTCF_f9_s3_shuffled_ATAC_fragL_dist,3.0,screen,scramble 5
+ATAC,s4,shuffled CTCF,2.2135447802914068,1.2160823680748074,0.2822409491668419,CTCF_f9_s4_shuffled_ATAC_fragL_dist,4.0,full,scramble 6
+ATAC,s5,shuffled CTCF,0.0,1.1648951294979142,0.2202000810912623,CTCF_f9_s5_shuffled_ATAC_fragL_dist,5.0,full,scramble 3
+ATAC,s6,shuffled CTCF,0.0,1.1757618205268314,0.233595836409985,CTCF_f9_s6_shuffled_ATAC_fragL_dist,6.0,full,scramble 7
+ATAC,s7,shuffled CTCF,0.0,1.183164645779414,0.2426508489282918,CTCF_f9_s7_shuffled_ATAC_fragL_dist,7.0,screen,scramble 8
+ATAC,s8,shuffled CTCF,0.0,1.2724487135554972,0.3476075091966576,CTCF_f9_s8_shuffled_ATAC_fragL_dist,8.0,screen,scramble 9
+ATAC,s9,shuffled CTCF,2.313812903790548,1.1663542255351618,0.2220060062167262,CTCF_f9_s9_shuffled_ATAC_fragL_dist,9.0,screen,scramble 10
+ATAC,s10,shuffled CTCF,0.0,1.2737417399120512,0.3490727906881957,CTCF_f9_s10_shuffled_ATAC_fragL_dist,10.0,screen,scramble 11
+DNase,s0,shuffled CTCF,14.191873150546677,1.2831265889644188,0.3596635089015677,CTCF_f9_s0_shuffled_DNase_fragL_dist,0.0,full,scramble 1
+DNase,s1,shuffled CTCF,17.26371796821114,1.2136936522737407,0.2794043177064395,CTCF_f9_s1_shuffled_DNase_fragL_dist,1.0,full,scramble 4
+DNase,s2,shuffled CTCF,10.149008611718404,1.1524098133440484,0.2046538509301998,CTCF_f9_s2_shuffled_DNase_fragL_dist,2.0,full,scramble 2
+DNase,s3,shuffled CTCF,24.12286180697847,1.3806257821198478,0.465322330862655,CTCF_f9_s3_shuffled_DNase_fragL_dist,3.0,full,scramble 5
+DNase,s4,shuffled CTCF,23.29932807943929,1.3078652552545238,0.3872139127093243,CTCF_f9_s4_shuffled_DNase_fragL_dist,4.0,full,scramble 6
+DNase,s5,shuffled CTCF,22.08240292102269,1.2022437845066296,0.2657294676279307,CTCF_f9_s5_shuffled_DNase_fragL_dist,5.0,full,scramble 3
+DNase,s6,shuffled CTCF,23.520622043204543,1.2187117250800483,0.2853569102228214,CTCF_f9_s6_shuffled_DNase_fragL_dist,6.0,full,scramble 7
+DNase,s7,shuffled CTCF,19.117919222111528,1.2306094662255624,0.2993729953471124,CTCF_f9_s7_shuffled_DNase_fragL_dist,7.0,screen,scramble 8
+DNase,s8,shuffled CTCF,20.0243418145862,1.365534493560004,0.4494657572078765,CTCF_f9_s8_shuffled_DNase_fragL_dist,8.0,screen,scramble 9
+DNase,s9,shuffled CTCF,0.0,1.1742675979438724,0.2317612144397404,CTCF_f9_s9_shuffled_DNase_fragL_dist,9.0,screen,scramble 10
+DNase,s10,shuffled CTCF,16.550376473466383,1.3329559803745403,0.4146291375581923,CTCF_f9_s10_shuffled_DNase_fragL_dist,10.0,screen,scramble 11
+loMNase,s0,shuffled CTCF,6.108629320602508,1.2478442470539326,0.3194378716794713,CTCF_f9_s0_shuffled_loMNase_fragL_dist,0.0,full,scramble 1
+loMNase,s1,shuffled CTCF,20.5311608622014,1.2992337846056927,0.3776610532217562,CTCF_f9_s1_shuffled_loMNase_fragL_dist,1.0,full,scramble 4
+loMNase,s2,shuffled CTCF,14.09483856628971,1.267147764107142,0.3415847692416018,CTCF_f9_s2_shuffled_loMNase_fragL_dist,2.0,full,scramble 2
+loMNase,s3,shuffled CTCF,18.347662699211885,1.5451354383445757,0.6277333026371702,CTCF_f9_s3_shuffled_loMNase_fragL_dist,3.0,full,scramble 5
+loMNase,s4,shuffled CTCF,0.0,1.0617802818107438,0.0864852547132914,CTCF_f9_s4_shuffled_loMNase_fragL_dist,4.0,full,scramble 6
+loMNase,s5,shuffled CTCF,0.0,1.0932998891745682,0.128689182603936,CTCF_f9_s5_shuffled_loMNase_fragL_dist,5.0,full,scramble 3
+loMNase,s6,shuffled CTCF,0.0,1.0366197829137649,0.0518868315761768,CTCF_f9_s6_shuffled_loMNase_fragL_dist,6.0,full,scramble 7
+loMNase,s7,shuffled CTCF,21.927581182261072,1.4319746567315423,0.5180059598289384,CTCF_f9_s7_shuffled_loMNase_fragL_dist,7.0,full,scramble 8
+loMNase,s8,shuffled CTCF,16.916867955324616,1.416988417327606,0.5028279655020014,CTCF_f9_s8_shuffled_loMNase_fragL_dist,8.0,full,scramble 9
+loMNase,s9,shuffled CTCF,18.72636565358378,1.3708579182930647,0.4550790516450958,CTCF_f9_s9_shuffled_loMNase_fragL_dist,9.0,full,scramble 10
+loMNase,s10,shuffled CTCF,20.03818075775748,1.3893669117403489,0.4744276445650474,CTCF_f9_s10_shuffled_loMNase_fragL_dist,10.0,full,scramble 11
