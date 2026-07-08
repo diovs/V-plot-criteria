@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="657.65376pt" height="141.846344pt" viewBox="0 0 657.65376 141.846344" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-07-07T09:57:21.308176</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.5.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 141.846344 
+L 657.65376 141.846344 
+L 657.65376 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 93.679488 96.847208 
+L 165.271392 96.847208 
+Q 175.748256 96.847208 175.748256 94.668632 
+L 175.748256 39.235976 
+Q 175.748256 37.0574 165.271392 37.0574 
+L 93.679488 37.0574 
+Q 83.202624 37.0574 83.202624 39.235976 
+L 83.202624 94.668632 
+Q 83.202624 96.847208 93.679488 96.847208 
+z
+" clip-path="url(#p2fb8e89b49)" style="fill: #eaf2f8; stroke: #6c7882; stroke-width: 0.9; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 177.74592 66.952304 
+Q 186.222002 66.952304 193.691853 66.952304 
+" clip-path="url(#p2fb8e89b49)" style="fill: none; stroke: #5b6670; stroke-width: 0.9; stroke-linecap: round"/>
+    <path d="M 189.691853 64.952304 
+L 193.691853 66.952304 
+L 189.691853 68.952304 
+L 189.691853 64.952304 
+z
+" clip-path="url(#p2fb8e89b49)" style="fill: #5b6670; stroke: #5b6670; stroke-width: 0.9; stroke-linecap: round"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 207.178848 96.847208 
+L 278.770752 96.847208 
+Q 289.247616 96.847208 289.247616 94.668632 
+L 289.247616 39.235976 
+Q 289.247616 37.0574 278.770752 37.0574 
+L 207.178848 37.0574 
+Q 196.701984 37.0574 196.701984 39.235976 
+L 196.701984 94.668632 
+Q 196.701984 96.847208 207.178848 96.847208 
+z
+" clip-path="url(#p2fb8e89b49)" style="fill: #eaf2f8; stroke: #6c7882; stroke-width: 0.9; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 291.24528 66.952304 
+Q 299.721362 66.952304 307.191213 66.952304 
+" clip-path="url(#p2fb8e89b49)" style="fill: none; stroke: #5b6670; stroke-width: 0.9; stroke-linecap: round"/>
+    <path d="M 303.191213 64.952304 
+L 307.191213 66.952304 
+L 303.191213 68.952304 
+L 303.191213 64.952304 
+z
+" clip-path="url(#p2fb8e89b49)" style="fill: #5b6670; stroke: #5b6670; stroke-width: 0.9; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 320.678208 96.847208 
+L 392.270112 96.847208 
+Q 402.746976 96.847208 402.746976 94.668632 
+L 402.746976 39.235976 
+Q 402.746976 37.0574 392.270112 37.0574 
+L 320.678208 37.0574 
+Q 310.201344 37.0574 310.201344 39.235976 
+L 310.201344 94.668632 
+Q 310.201344 96.847208 320.678208 96.847208 
+z
+" clip-path="url(#p2fb8e89b49)" style="fill: #eaf2f8; stroke: #6c7882; stroke-width: 0.9; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 404.74464 66.952304 
+Q 413.220722 66.952304 420.690573 66.952304 
+" clip-path="url(#p2fb8e89b49)" style="fill: none; stroke: #5b6670; stroke-width: 0.9; stroke-linecap: round"/>
+    <path d="M 416.690573 64.952304 
+L 420.690573 66.952304 
+L 416.690573 68.952304 
+L 416.690573 64.952304 
+z
+" clip-path="url(#p2fb8e89b49)" style="fill: #5b6670; stroke: #5b6670; stroke-width: 0.9; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 434.177568 96.847208 
+L 505.769472 96.847208 
+Q 516.246336 96.847208 516.246336 94.668632 
+L 516.246336 39.235976 
+Q 516.246336 37.0574 505.769472 37.0574 
+L 434.177568 37.0574 
+Q 423.700704 37.0574 423.700704 39.235976 
+L 423.700704 94.668632 
+Q 423.700704 96.847208 434.177568 96.847208 
+z
+" clip-path="url(#p2fb8e89b49)" style="fill: #f7ede5; stroke: #6c7882; stroke-width: 0.9; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 518.244 66.952304 
+Q 526.720082 66.952304 534.189933 66.952304 
+" clip-path="url(#p2fb8e89b49)" style="fill: none; stroke: #5b6670; stroke-width: 0.9; stroke-linecap: round"/>
+    <path d="M 530.189933 64.952304 
+L 534.189933 66.952304 
+L 530.189933 68.952304 
+L 530.189933 64.952304 
+z
+" clip-path="url(#p2fb8e89b49)" style="fill: #5b6670; stroke: #5b6670; stroke-width: 0.9; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 547.676928 96.847208 
+L 619.268832 96.847208 
+Q 629.745696 96.847208 629.745696 94.668632 
+L 629.745696 39.235976 
+Q 629.745696 37.0574 619.268832 37.0574 
+L 547.676928 37.0574 
+Q 537.200064 37.0574 537.200064 39.235976 
+L 537.200064 94.668632 
+Q 537.200064 96.847208 547.676928 96.847208 
+z
+" clip-path="url(#p2fb8e89b49)" style="fill: #e9f4ef; stroke: #6c7882; stroke-width: 0.9; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="fill: #222222; font: 700 7.9px 'sans-serif'; text-anchor: middle" x="129.47544" y="49.76709" transform="rotate(-0, 129.47544, 49.76709)">Inputs</text>
+   </g>
+   <g id="text_2">
+    <text style="fill: #222222; font: 6.45px 'sans-serif'" transform="translate(112.876768 68.869451)">fragments</text>
+    <text style="fill: #222222; font: 6.45px 'sans-serif'" transform="translate(117.12117 75.994021)">TF sites</text>
+    <text style="fill: #222222; font: 6.45px 'sans-serif'" transform="translate(108.993667 83.11859)">bias controls</text>
+   </g>
+   <g id="text_3">
+    <text style="fill: #222222; font: 700 7.9px 'sans-serif'; text-anchor: middle" x="242.9748" y="49.76709" transform="rotate(-0, 242.9748, 49.76709)">V-plot table</text>
+   </g>
+   <g id="text_4">
+    <text style="fill: #222222; font: 6.45px 'sans-serif'" transform="translate(228.665374 68.869451)">midpoint</text>
+    <text style="fill: #222222; font: 6.45px 'sans-serif'" transform="translate(232.695112 75.994021)">length</text>
+    <text style="fill: #222222; font: 6.45px 'sans-serif'" transform="translate(217.148093 83.11859)">anchor distance</text>
+   </g>
+   <g id="text_5">
+    <text style="fill: #222222; font: 700 7.9px 'sans-serif'; text-anchor: middle" x="356.47416" y="49.76709" transform="rotate(-0, 356.47416, 49.76709)">Model fit</text>
+   </g>
+   <g id="text_6">
+    <text style="fill: #222222; font: 6.45px 'sans-serif'" transform="translate(348.613726 65.307167)">apex</text>
+    <text style="fill: #222222; font: 6.45px 'sans-serif'" transform="translate(347.585254 72.431736)">width</text>
+    <text style="fill: #222222; font: 6.45px 'sans-serif'" transform="translate(343.746496 79.556305)">inside-V</text>
+    <text style="fill: #222222; font: 6.45px 'sans-serif'" transform="translate(350.700402 86.680874)">LRT</text>
+   </g>
+   <g id="text_7">
+    <text style="fill: #222222; font: 700 7.9px 'sans-serif'; text-anchor: middle" x="469.97352" y="49.76709" transform="rotate(-0, 469.97352, 49.76709)">Cut-offs</text>
+   </g>
+   <g id="text_8">
+    <text style="fill: #222222; font: 6.45px 'sans-serif'" transform="translate(456.65427 72.431736)">mid-gap</text>
+    <text style="fill: #222222; font: 6.45px 'sans-serif'" transform="translate(452.905207 79.556305)">calibration</text>
+   </g>
+   <g id="text_9">
+    <text style="fill: #222222; font: 700 7.9px 'sans-serif'; text-anchor: middle" x="583.47288" y="49.76709" transform="rotate(-0, 583.47288, 49.76709)">Classification</text>
+   </g>
+   <g id="text_10">
+    <text style="fill: #222222; font: 6.45px 'sans-serif'" transform="translate(570.856579 68.869451)">width +</text>
+    <text style="fill: #222222; font: 6.45px 'sans-serif'" transform="translate(564.971962 75.994021)">enrichment</text>
+    <text style="fill: #222222; font: 6.45px 'sans-serif'" transform="translate(562.834896 83.11859)">pass cut-offs</text>
+   </g>
+   <g id="text_11">
+    <text style="fill: #222222; font: 8px 'sans-serif'; text-anchor: middle" x="363.74976" y="123.019044" transform="rotate(-0, 363.74976, 123.019044)">LRT reports V-like evidence; final calls use calibrated width + enrichment cut-offs.</text>
+   </g>
+   <g id="text_12">
+    <text style="fill: #222222; font: 700 14px 'sans-serif'; text-anchor: start" x="2.88" y="13.812461" transform="rotate(-0, 2.88, 13.812461)">C</text>
+   </g>
+   <g id="text_13">
+    <text style="font: 700 10.6px 'sans-serif'; text-anchor: start" x="72.72576" y="10.934344" transform="rotate(-0, 72.72576, 10.934344)">Reproducible V-plot workflow</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p2fb8e89b49">
+   <rect x="72.72576" y="17.934344" width="582.048" height="121.032"/>
+  </clipPath>
+ </defs>
+</svg>

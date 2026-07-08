@@ -1,0 +1,103 @@
+assay,left_out_group,left_out_group_type,held_out_expected_class,held_out_predicted_class,held_out_correct,feature,full_cutoff,loo_cutoff,loo_over_full,margin
+loMNase,AAG,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,width,6.708921215961457,6.708921215961457,1.0,6.708471618986781
+loMNase,AAG,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,inside_v_enrichment,0.5067117145116604,0.5020735947611323,0.9908466301099866,0.43725802210838666
+loMNase,ACA,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,width,6.708921215961457,6.708921215961457,1.0,6.708471618986781
+loMNase,ACA,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,inside_v_enrichment,0.5067117145116604,0.5067117145116603,0.9999999999999998,0.43261990235785874
+loMNase,AGA,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,width,6.708921215961457,6.708921215961457,1.0,6.708471618986781
+loMNase,AGA,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,inside_v_enrichment,0.5067117145116604,0.5067117145116603,0.9999999999999998,0.43261990235785874
+loMNase,AGT,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,width,6.708921215961457,6.708921215961457,1.0,6.708471618986781
+loMNase,AGT,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,inside_v_enrichment,0.5067117145116604,0.5067117145116603,0.9999999999999998,0.43261990235785874
+loMNase,TGG,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,width,6.708921215961457,6.708696417474119,0.9999664926028937,6.708696417474119
+loMNase,TGG,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,inside_v_enrichment,0.5067117145116604,0.5067117145116603,0.9999999999999998,0.43261990235785874
+loMNase,CTCF,TF motifs,TF-footprint-like,TF-footprint-like,True,width,6.708921215961457,6.708921215961457,1.0,6.708471618986781
+loMNase,CTCF,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.5067117145116604,0.5067117145116603,0.9999999999999998,0.43261990235785874
+loMNase,SP1,TF motifs,TF-footprint-like,TF-footprint-like,True,width,6.708921215961457,6.708921215961457,1.0,6.708471618986781
+loMNase,SP1,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.5067117145116604,0.5067117145116603,0.9999999999999998,0.43261990235785874
+loMNase,KLF16,TF motifs,TF-footprint-like,TF-footprint-like,True,width,6.708921215961457,6.708921215961457,1.0,6.708471618986781
+loMNase,KLF16,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.5067117145116604,0.5067117145116603,0.9999999999999998,0.43261990235785874
+loMNase,NRF1,TF motifs,TF-footprint-like,TF-footprint-like,True,width,6.708921215961457,6.708921215961457,1.0,6.708471618986781
+loMNase,NRF1,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.5067117145116604,0.5067117145116603,0.9999999999999998,0.43261990235785874
+loMNase,ZNF148,TF motifs,TF-footprint-like,TF-footprint-like,True,width,6.708921215961457,6.708921215961457,1.0,6.708471618986781
+loMNase,ZNF148,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.5067117145116604,0.5067117145116603,0.9999999999999998,0.43261990235785874
+loMNase,PATZ1,TF motifs,TF-footprint-like,TF-footprint-like,True,width,6.708921215961457,6.708921215961457,1.0,6.708471618986781
+loMNase,PATZ1,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.5067117145116604,0.5067117145116603,0.9999999999999998,0.43261990235785874
+loMNase,NFIC,TF motifs,TF-footprint-like,TF-footprint-like,True,width,6.708921215961457,6.708921215961457,1.0,6.708471618986781
+loMNase,NFIC,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.5067117145116604,0.5067117145116603,0.9999999999999998,0.43261990235785874
+loMNase,ZNF281,TF motifs,TF-footprint-like,TF-footprint-like,True,width,6.708921215961457,6.708921215961457,1.0,6.708471618986781
+loMNase,ZNF281,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.5067117145116604,0.5067117145116603,0.9999999999999998,0.43261990235785874
+loMNase,TFE3,TF motifs,TF-footprint-like,TF-footprint-like,True,width,6.708921215961457,7.707433100735618,1.148833449168931,7.706983503760942
+loMNase,TFE3,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.5067117145116604,0.5067117145116603,0.9999999999999998,0.43261990235785874
+loMNase,REST,TF motifs,TF-footprint-like,TF-footprint-like,True,width,6.708921215961457,6.708921215961457,1.0,6.708471618986781
+loMNase,REST,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.5067117145116604,0.5067117145116603,0.9999999999999998,0.43261990235785874
+loMNase,ZNF324,TF motifs,TF-footprint-like,TF-footprint-like,True,width,6.708921215961457,6.708921215961457,1.0,6.708471618986781
+loMNase,ZNF324,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.5067117145116604,0.5973417963486075,1.178859259104146,0.5232499841948058
+loMNase,ZBTB33,TF motifs,TF-footprint-like,TF-footprint-like,True,width,6.708921215961457,6.708921215961457,1.0,6.708471618986781
+loMNase,ZBTB33,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.5067117145116604,0.5067117145116603,0.9999999999999998,0.43261990235785874
+DNase,TCC,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,width,9.154892066855576,9.154892066855576,1.0,9.154595157750196
+DNase,TCC,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,inside_v_enrichment,0.338756749077624,0.33875674907762404,1.0000000000000002,0.20384919645768812
+DNase,TGA,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,width,9.154892066855576,9.154892066855576,1.0,9.154595157750196
+DNase,TGA,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,inside_v_enrichment,0.338756749077624,0.33875674907762404,1.0000000000000002,0.20384919645768812
+DNase,TGC,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,width,9.154892066855576,9.154775082822875,0.9999872216917637,9.154712141782896
+DNase,TGC,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,inside_v_enrichment,0.338756749077624,0.33875674907762404,1.0000000000000002,0.20384919645768812
+DNase,TGG,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,width,9.154892066855576,9.154892066855576,1.0,9.154595157750196
+DNase,TGG,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,inside_v_enrichment,0.338756749077624,0.32268129985008254,0.9525457447820239,0.21992464568522962
+DNase,TGT,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,width,9.154892066855576,9.154892066855576,1.0,9.154595157750196
+DNase,TGT,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,inside_v_enrichment,0.338756749077624,0.33875674907762404,1.0000000000000002,0.20384919645768812
+DNase,SP1,TF motifs,TF-footprint-like,TF-footprint-like,True,width,9.154892066855576,9.154892066855576,1.0,9.154595157750196
+DNase,SP1,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.338756749077624,0.33875674907762404,1.0000000000000002,0.20384919645768812
+DNase,KLF16,TF motifs,TF-footprint-like,TF-footprint-like,True,width,9.154892066855576,9.154892066855576,1.0,9.154595157750196
+DNase,KLF16,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.338756749077624,0.33875674907762404,1.0000000000000002,0.20384919645768812
+DNase,CTCF,TF motifs,TF-footprint-like,TF-footprint-like,True,width,9.154892066855576,9.154892066855576,1.0,9.154595157750196
+DNase,CTCF,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.338756749077624,0.33875674907762404,1.0000000000000002,0.20384919645768812
+DNase,ZNF281,TF motifs,TF-footprint-like,TF-footprint-like,True,width,9.154892066855576,9.154892066855576,1.0,9.154595157750196
+DNase,ZNF281,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.338756749077624,0.33875674907762404,1.0000000000000002,0.20384919645768812
+DNase,JUND,TF motifs,TF-footprint-like,TF-footprint-like,True,width,9.154892066855576,9.154892066855576,1.0,9.154595157750196
+DNase,JUND,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.338756749077624,0.33875674907762404,1.0000000000000002,0.20384919645768812
+DNase,TFE3,TF motifs,TF-footprint-like,TF-footprint-like,True,width,9.154892066855576,9.260435763971632,1.0115286664599976,9.260138854866252
+DNase,TFE3,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.338756749077624,0.33875674907762404,1.0000000000000002,0.20384919645768812
+DNase,NFIC,TF motifs,TF-footprint-like,TF-footprint-like,True,width,9.154892066855576,9.154892066855576,1.0,9.154595157750196
+DNase,NFIC,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.338756749077624,0.33875674907762404,1.0000000000000002,0.20384919645768812
+DNase,BACH1,TF motifs,TF-footprint-like,TF-footprint-like,True,width,9.154892066855576,9.154892066855576,1.0,9.154595157750196
+DNase,BACH1,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.338756749077624,0.33875674907762404,1.0000000000000002,0.20384919645768812
+DNase,ZNF740,TF motifs,TF-footprint-like,cleavage-bias-like,False,width,9.154892066855576,9.154892066855576,1.0,9.154595157750196
+DNase,ZNF740,TF motifs,TF-footprint-like,cleavage-bias-like,False,inside_v_enrichment,0.338756749077624,0.6304094709936522,1.8609502916477623,0.49550191837371627
+DNase,NFE2,TF motifs,TF-footprint-like,TF-footprint-like,True,width,9.154892066855576,9.154892066855576,1.0,9.154595157750196
+DNase,NFE2,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.338756749077624,0.33875674907762404,1.0000000000000002,0.20384919645768812
+DNase,MAFG,TF motifs,TF-footprint-like,TF-footprint-like,True,width,9.154892066855576,9.154892066855576,1.0,9.154595157750196
+DNase,MAFG,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.338756749077624,0.33875674907762404,1.0000000000000002,0.20384919645768812
+DNase,REST,TF motifs,TF-footprint-like,TF-footprint-like,True,width,9.154892066855576,9.154892066855576,1.0,9.154595157750196
+DNase,REST,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.338756749077624,0.33875674907762404,1.0000000000000002,0.20384919645768812
+ATAC,GCC,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,width,19.998395142799787,19.998395142799787,1.0,19.148438893082343
+ATAC,GCC,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,inside_v_enrichment,0.3732815147375332,0.3732815147375332,1.0,0.13599475406016565
+ATAC,GCT,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,width,19.998395142799787,19.998395142799787,1.0,19.148438893082343
+ATAC,GCT,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,inside_v_enrichment,0.3732815147375332,0.3732815147375332,1.0,0.13599475406016565
+ATAC,GGC,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,width,19.998395142799787,19.998395142799787,1.0,19.148438893082343
+ATAC,GGC,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,inside_v_enrichment,0.3732815147375332,0.373032940907526,0.9993340848121505,0.13624332789017285
+ATAC,GTC,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,width,19.998395142799787,19.573417017941065,0.9787493885472239,19.573417017941065
+ATAC,GTC,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,inside_v_enrichment,0.3732815147375332,0.3732815147375332,1.0,0.13599475406016565
+ATAC,GTG,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,width,19.998395142799787,19.998395142799787,1.0,19.148438893082343
+ATAC,GTG,matched cleavage-bias controls,cleavage-bias-like,cleavage-bias-like,True,inside_v_enrichment,0.3732815147375332,0.3732815147375332,1.0,0.13599475406016565
+ATAC,CTCF,TF motifs,TF-footprint-like,TF-footprint-like,True,width,19.998395142799787,19.998395142799787,1.0,19.148438893082343
+ATAC,CTCF,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.3732815147375332,0.3732815147375332,1.0,0.13599475406016565
+ATAC,ZNF281,TF motifs,TF-footprint-like,TF-footprint-like,True,width,19.998395142799787,19.998395142799787,1.0,19.148438893082343
+ATAC,ZNF281,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.3732815147375332,0.3732815147375332,1.0,0.13599475406016565
+ATAC,GMEB1,TF motifs,TF-footprint-like,TF-footprint-like,True,width,19.998395142799787,19.998395142799787,1.0,19.148438893082343
+ATAC,GMEB1,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.3732815147375332,0.3732815147375332,1.0,0.13599475406016565
+ATAC,STAT5B,TF motifs,TF-footprint-like,TF-footprint-like,True,width,19.998395142799787,19.998395142799787,1.0,19.148438893082343
+ATAC,STAT5B,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.3732815147375332,0.44251583379941534,1.1854748127845633,0.2052290731220478
+ATAC,MLX,TF motifs,TF-footprint-like,TF-footprint-like,True,width,19.998395142799787,19.998395142799787,1.0,19.148438893082343
+ATAC,MLX,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.3732815147375332,0.3732815147375332,1.0,0.13599475406016565
+ATAC,JUND,TF motifs,TF-footprint-like,TF-footprint-like,True,width,19.998395142799787,19.998395142799787,1.0,19.148438893082343
+ATAC,JUND,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.3732815147375332,0.3732815147375332,1.0,0.13599475406016565
+ATAC,TFE3,TF motifs,TF-footprint-like,TF-footprint-like,True,width,19.998395142799787,19.998395142799787,1.0,19.148438893082343
+ATAC,TFE3,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.3732815147375332,0.3732815147375332,1.0,0.13599475406016565
+ATAC,NFIC,TF motifs,TF-footprint-like,TF-footprint-like,True,width,19.998395142799787,19.998395142799787,1.0,19.148438893082343
+ATAC,NFIC,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.3732815147375332,0.3732815147375332,1.0,0.13599475406016565
+ATAC,CEBPG,TF motifs,TF-footprint-like,TF-footprint-like,True,width,19.998395142799787,19.998395142799787,1.0,19.148438893082343
+ATAC,CEBPG,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.3732815147375332,0.3732815147375332,1.0,0.13599475406016565
+ATAC,CREB1,TF motifs,TF-footprint-like,TF-footprint-like,True,width,19.998395142799787,19.998395142799787,1.0,19.148438893082343
+ATAC,CREB1,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.3732815147375332,0.3732815147375332,1.0,0.13599475406016565
+ATAC,IRF9,TF motifs,TF-footprint-like,TF-footprint-like,True,width,19.998395142799787,19.998395142799787,1.0,19.148438893082343
+ATAC,IRF9,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.3732815147375332,0.3732815147375332,1.0,0.13599475406016565
+ATAC,MECOM,TF motifs,TF-footprint-like,TF-footprint-like,True,width,19.998395142799787,20.62989909141475,1.0315777313182217,19.779942841697306
+ATAC,MECOM,TF motifs,TF-footprint-like,TF-footprint-like,True,inside_v_enrichment,0.3732815147375332,0.3732815147375332,1.0,0.13599475406016565
