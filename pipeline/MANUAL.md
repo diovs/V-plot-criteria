@@ -42,8 +42,6 @@ deflects fragment ends, producing a characteristic **"V"** whose apex sits at th
 motif centre. Enzyme cleavage bias can also produce a V-like pattern, so the V shape
 alone does not prove a TF-footprint-like pattern.
 
-<img src="vplot_schematic.png" width="380">
-
 This pipeline distinguishes the two using two quantities extracted from a fitted
 V-plot model (see [§9 Method](#9-method)):
 

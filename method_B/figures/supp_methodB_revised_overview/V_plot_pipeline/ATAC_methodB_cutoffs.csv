@@ -1,4 +1,0 @@
-feature,cutoff,margin,separable,auc,loo_acc,loo_sens,loo_spec
-V-channel width (bp),10.7283,10.71,True,1.0,1.0,1.0,1.0
-log2(V-in/V-out),0.483,0.2318,True,1.0,1.0,1.0,1.0
-2D rule (width AND E),width>=10.728 & E>=0.483,,,,1.0,1.0,1.0
