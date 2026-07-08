@@ -1,0 +1,37 @@
+assay,TF,keep,recommendation_reason
+loMNase,CTCF,yes,strong central V and highest enrichment
+loMNase,SP1,yes,clear V
+loMNase,KLF16,yes,clear enough V
+loMNase,NRF1,yes,clear V
+loMNase,ZNF148,no,relatively weaker enrichment and redundant GC-rich zinc-finger example
+loMNase,PATZ1,yes,clear V
+loMNase,NFIC,yes,clean compact V
+loMNase,ZNF281,yes,clear V
+loMNase,TFE3,yes,kept as balanced/AT-leaning example with readable V
+loMNase,REST,yes,clear V and distinct motif class
+loMNase,ZNF324,no,weak/sparse-looking V among loMNase candidates
+loMNase,ZBTB33,yes,readable V
+DNase,SP1,yes,clear V
+DNase,KLF16,yes,clear V
+DNase,CTCF,yes,strong V
+DNase,ZNF281,yes,readable V
+DNase,JUND,yes,readable V and AT/GC-balanced motif class
+DNase,TFE3,yes,readable V and balanced motif
+DNase,NFIC,yes,strong V
+DNase,BACH1,yes,clear V
+DNase,ZNF740,no,lowest enrichment and weak diffuse V
+DNase,NFE2,yes,clear V and stronger than MAFG among similar bZIP motifs
+DNase,MAFG,no,motif-redundant with NFE2 and less necessary for 10-panel set
+DNase,REST,yes,readable distinct motif class
+ATAC,CTCF,yes,strong V
+ATAC,ZNF281,yes,readable V
+ATAC,GMEB1,yes,readable broad V
+ATAC,STAT5B,no,very low fitted enrichment and weak V
+ATAC,MLX,yes,clear V and balanced motif
+ATAC,JUND,yes,readable V
+ATAC,TFE3,yes,readable V and balanced motif
+ATAC,NFIC,yes,clean V
+ATAC,CEBPG,yes,clear V and AT-rich/balanced example
+ATAC,CREB1,yes,clear V and AT-rich/balanced example
+ATAC,IRF9,no,very low fitted enrichment and off-center/noisy V
+ATAC,MECOM,yes,sparser than most but visually more V-like than STAT5B/IRF9
