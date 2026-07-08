@@ -96,10 +96,15 @@ requirements and local path variables.
 
 ## Data Sources
 
-The manuscript uses loMNase-seq and CTCF/MAZ native ChIP-seq data available from
-GSA-Human under accessions `HRA005744` and `HRA017804`. DNase-seq and ATAC-seq
-examples use ENCODE datasets including `ENCSR000EOT`, `ENCSR483RKN`, and
-`ENCSR868FGK`.
+Public data used in this study were obtained from ENCODE and public sequence
+repositories. K562 DNase-seq (`ENCSR000EOT`) and ATAC-seq (`ENCSR483RKN` and
+`ENCSR868FGK`) alignments were downloaded from ENCODE. A standard K562
+MNase-seq dataset was obtained from GEO (`SRR25917600`). Transcription-factor
+occupancy was annotated with public ENCODE ChIP-seq data for the corresponding
+factors. For the S. pombe analysis, MNase-seq reads from NCBI BioProject
+`PRJNA1146485` and MBF ChIP-seq peaks from GEO `GSE274238` were used. The
+loMNase-seq and CTCF/MAZ native ChIP-seq data are available from GSA-Human under
+accessions `HRA005744` and `HRA017804`.
 
 Large sequencing files, genome FASTA files, and large derived alignment files
 are not stored in this repository. Users should download the required public
