@@ -59,7 +59,6 @@ K562 DNase-seq (`ENCSR000EOT`) and ATAC-seq (`ENCSR483RKN`, `ENCSR868FGK`) were
 downloaded from ENCODE. loMNase-seq and CTCF/MAZ native ChIP-seq data are
 available from GSA-Human under `HRA005744` and `HRA017804`.
 
-Large sequencing files and genome FASTA files should be downloaded separately.
 
 ## Citation
 
