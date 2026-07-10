@@ -9,8 +9,8 @@ discriminating quantities
   - inside-V enrichment  E = log2(enrichment_fold)
 to compare TF motifs with enzyme cleavage bias controls, reporting:
   1) two-sided Wilcoxon rank-sum tests for the two features
-     (implemented with the equivalent Mann-Whitney U test);
-  2) if both features are significant, an empirical cut-off per feature
+     and confirmation that the TF values are higher than the bias values;
+  2) if both features pass, an empirical cut-off per feature
      (gap midpoint / Youden; identical when fully
      separable) and its margin;
   3) leave-one-out (LOO) sensitivity/specificity/accuracy, including the
@@ -19,7 +19,7 @@ to compare TF motifs with enzyme cleavage bias controls, reporting:
 
 Usage:
   python 5_scatter_cutoffs.py --tf TF_apex.tsv --bias bias_apex.tsv \
-      --out-prefix results/ATAC_methodB [--assay ATAC] [--mw-alpha 0.05]
+      --out-prefix results/ATAC [--assay ATAC] [--rank-alpha 0.05]
 """
 import argparse
 import os
@@ -111,8 +111,8 @@ def loo_2d(width, enrich, is_tf):
                 spec=tn / N if N else np.nan, tp=tp, fp=fp, tn=tn, fn=fn)
 
 
-def auc_mw(value, is_tf):
-    """Analytic rank-sum / Mann-Whitney AUC (larger value = more TF-like)."""
+def rank_sum_auc(value, is_tf):
+    """Analytic rank-sum AUC (larger value = more TF-like)."""
     v = np.asarray(value, float)
     pos = v[is_tf]; neg = v[~is_tf]
     if len(pos) == 0 or len(neg) == 0:
@@ -136,13 +136,11 @@ def format_p(value):
     return f"{value:.3g}"
 
 
-def mann_whitney_summary(df, is_tf, alpha):
+def rank_sum_summary(df, is_tf, alpha):
     """Run two-sided Wilcoxon rank-sum tests for the two discriminating features.
 
-    SciPy's mannwhitneyu function is used because the Wilcoxon rank-sum test and
-    Mann-Whitney U test are equivalent for two independent groups. The legacy
-    MW_p column is retained for backward compatibility; WRS_p is the preferred
-    public-facing name.
+    SciPy's mannwhitneyu implementation supplies the equivalent two-sample
+    rank-sum p-value. The reported WRS statistic is the TF-group rank sum.
     """
     rows = []
     for feat, label in [("width", "V-channel width (bp)"),
@@ -150,20 +148,25 @@ def mann_whitney_summary(df, is_tf, alpha):
         val = df[feat].to_numpy()
         tf_v = val[is_tf]
         bias_v = val[~is_tf]
-        mw = stats.mannwhitneyu(tf_v, bias_v, alternative="two-sided", method="auto")
-        pvalue = float(mw.pvalue)
+        test = stats.mannwhitneyu(tf_v, bias_v, alternative="two-sided", method="auto")
+        pvalue = float(test.pvalue)
+        median_tf = float(np.median(tf_v))
+        median_bias = float(np.median(bias_v))
+        auc = rank_sum_auc(val, is_tf)
+        tf_higher = bool(median_tf > median_bias and auc > 0.5)
         rows.append(dict(
             feature=label,
             TF_n=len(tf_v),
             bias_n=len(bias_v),
-            median_TF=float(np.median(tf_v)),
-            median_bias=float(np.median(bias_v)),
-            U=float(mw.statistic),
+            median_TF=median_tf,
+            median_bias=median_bias,
+            WRS_statistic=float(test.statistic + len(tf_v) * (len(tf_v) + 1) / 2.0),
             WRS_p=pvalue,
-            MW_p=pvalue,
-            AUC=auc_mw(val, is_tf),
+            AUC=auc,
+            TF_higher=tf_higher,
             alpha=alpha,
             significant=bool(pvalue < alpha),
+            gate_passed=bool(pvalue < alpha and tf_higher),
         ))
     return pd.DataFrame(rows)
 
@@ -186,7 +189,7 @@ def load_apex(path, group):
 # ---------------------------------------------------------------------------
 # Plot
 # ---------------------------------------------------------------------------
-def make_scatter(df, tw, te, out_png, out_pdf, assay, mw_passed=True):
+def make_scatter(df, tw, te, out_png, out_pdf, assay, rank_sum_passed=True):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -214,7 +217,7 @@ def make_scatter(df, tw, te, out_png, out_pdf, assay, mw_passed=True):
                 ha="left", fontsize=10)
         ax.text(xmax, te, f"E >= {te:.2f}  ", color="#333333", va="bottom",
                 ha="right", fontsize=10)
-    elif not mw_passed:
+    elif not rank_sum_passed:
         ax.text(0.02, 0.98, "rank-sum gate not passed;\nno cut-offs calibrated",
                 transform=ax.transAxes, ha="left", va="top", fontsize=10,
                 color="#333333",
@@ -235,28 +238,30 @@ def make_scatter(df, tw, te, out_png, out_pdf, assay, mw_passed=True):
     plt.close(fig)
 
 
-def write_conclusion(path, assay, mw_table, mw_passed, alpha, cutoffs=None):
+def write_conclusion(path, assay, rank_sum_table, rank_sum_passed, alpha, cutoffs=None):
     lines = [
         f"Assay: {assay}",
-        f"Wilcoxon rank-sum gate: {'PASS' if mw_passed else 'FAIL'}",
-        f"Criterion: both V-channel width and inside-V enrichment must have two-sided rank-sum p < {alpha:g}.",
+        f"Wilcoxon rank-sum gate: {'PASS' if rank_sum_passed else 'FAIL'}",
+        ("Criterion: both features must have two-sided rank-sum p "
+         f"< {alpha:g}, with TF values higher than bias values."),
         "",
         "Feature-level tests:",
     ]
-    for _, row in mw_table.iterrows():
+    for _, row in rank_sum_table.iterrows():
         lines.append(
             f"- {row['feature']}: p={format_p(float(row['WRS_p']))}, "
             f"AUC={float(row['AUC']):.3f}, "
             f"median_TF={float(row['median_TF']):.4g}, "
             f"median_bias={float(row['median_bias']):.4g}, "
-            f"significant={bool(row['significant'])}"
+            f"TF_higher={bool(row['TF_higher'])}, "
+            f"gate_passed={bool(row['gate_passed'])}"
         )
     lines.append("")
-    if mw_passed and cutoffs is not None:
-        lines.append("Conclusion: TF motifs and bias controls differ significantly in both features; cut-offs were calibrated.")
-        lines.append(f"2-D rule: V-channel width >= {cutoffs['width']:.4g} bp AND inside-V enrichment >= {cutoffs['enrich']:.4g}.")
+    if rank_sum_passed and cutoffs is not None:
+        lines.append("Conclusion: TF motifs are significantly higher than bias controls in both features; cut-offs were calibrated.")
+        lines.append(f"2-D rule: V-channel width >= {cutoffs['width']:.4g} bp AND log2(V-in/V-out) >= {cutoffs['enrich']:.4g}.")
     else:
-        lines.append("Conclusion: TF motifs and bias controls do not differ significantly in both required features; no cut-offs were calibrated.")
+        lines.append("Conclusion: both required features did not show a significant TF-higher result; no cut-offs were calibrated.")
     with open(path, "w", encoding="utf-8") as handle:
         handle.write("\n".join(lines) + "\n")
 
@@ -268,41 +273,44 @@ def main():
     ap.add_argument("--bias", required=True, help="bias apex TSV")
     ap.add_argument("--out-prefix", required=True, help="output prefix")
     ap.add_argument("--assay", default="assay", help="assay name (title only)")
-    ap.add_argument("--rank-alpha", "--mw-alpha", dest="mw_alpha", type=float, default=0.05,
+    ap.add_argument("--rank-alpha", type=float, default=0.05,
                     help="Wilcoxon rank-sum significance threshold; both features must pass before cut-offs are calibrated")
     args = ap.parse_args()
+    if not 0 < args.rank_alpha < 1:
+        ap.error("--rank-alpha must be between 0 and 1")
 
     tf = load_apex(args.tf, "TF")
     bi = load_apex(args.bias, "bias")
     df = pd.concat([tf, bi], ignore_index=True)
-    if len(tf) == 0 or len(bi) == 0:
-        sys.exit(f"ERROR: TF or bias has 0 rows (TF={len(tf)}, bias={len(bi)})")
+    if len(tf) < 2 or len(bi) < 2:
+        sys.exit(f"ERROR: at least 2 valid TF and 2 valid bias rows are required (TF={len(tf)}, bias={len(bi)})")
     is_tf = (df.group == "TF").to_numpy()
 
     os.makedirs(os.path.dirname(args.out_prefix) or ".", exist_ok=True)
     csv_path = args.out_prefix + "_cutoffs.csv"
-    mw_path = args.out_prefix + "_mw_test.csv"
+    rank_sum_path = args.out_prefix + "_rank_sum_test.csv"
     conclusion_path = args.out_prefix + "_conclusion.txt"
     scatter_png = args.out_prefix + "_scatter.png"
     scatter_pdf = args.out_prefix + "_scatter.pdf"
 
-    mw_table = mann_whitney_summary(df, is_tf, args.mw_alpha)
-    mw_table.to_csv(mw_path, index=False)
-    mw_passed = bool(mw_table["significant"].all())
+    rank_sum_table = rank_sum_summary(df, is_tf, args.rank_alpha)
+    rank_sum_table.to_csv(rank_sum_path, index=False)
+    rank_sum_passed = bool(rank_sum_table["gate_passed"].all())
 
-    if not mw_passed:
-        out = mw_table[["feature", "WRS_p", "MW_p", "AUC", "alpha", "significant"]].copy()
+    if not rank_sum_passed:
+        out = rank_sum_table[["feature", "WRS_p", "AUC", "TF_higher", "alpha",
+                              "significant", "gate_passed"]].copy()
         out.insert(1, "cutoff", np.nan)
-        out["status"] = "no_cutoff_MW_gate_failed"
+        out["status"] = "no_cutoff_rank_sum_gate_failed"
         out.to_csv(csv_path, index=False)
-        make_scatter(df, None, None, scatter_png, scatter_pdf, args.assay, mw_passed=False)
-        write_conclusion(conclusion_path, args.assay, mw_table, False, args.mw_alpha)
+        make_scatter(df, None, None, scatter_png, scatter_pdf, args.assay, rank_sum_passed=False)
+        write_conclusion(conclusion_path, args.assay, rank_sum_table, False, args.rank_alpha)
 
         sys.stderr.write(f"\n[{args.assay}]  TF n={len(tf)}  bias n={len(bi)}\n")
         sys.stderr.write(f"Wilcoxon rank-sum gate FAILED: no cut-offs calibrated.\n")
         with pd.option_context("display.width", 200, "display.max_columns", 30):
-            sys.stderr.write(mw_table.to_string(index=False) + "\n")
-        sys.stderr.write(f"wrote: {mw_path}\n       {conclusion_path}\n       {csv_path}\n       {scatter_png} / .pdf\n")
+            sys.stderr.write(rank_sum_table.to_string(index=False) + "\n")
+        sys.stderr.write(f"wrote: {rank_sum_path}\n       {conclusion_path}\n       {csv_path}\n       {scatter_png} / .pdf\n")
         return
 
     rows = []
@@ -312,13 +320,13 @@ def main():
         mg = midgap_threshold(val, is_tf)
         thr = youden_threshold(val, is_tf)
         loo = loo_1d(val, is_tf)
-        mw_row = mw_table[mw_table["feature"] == label].iloc[0]
+        rank_sum_row = rank_sum_table[rank_sum_table["feature"] == label].iloc[0]
         rows.append(dict(feature=label, cutoff=round(thr, 4),
                          margin=round(mg["margin"], 4), separable=mg["separable"],
-                         auc=round(auc_mw(val, is_tf), 4),
-                         WRS_p=float(mw_row["WRS_p"]),
-                         MW_p=float(mw_row["MW_p"]),
-                         MW_significant=bool(mw_row["significant"]),
+                         auc=round(rank_sum_auc(val, is_tf), 4),
+                         WRS_p=float(rank_sum_row["WRS_p"]),
+                         TF_higher=bool(rank_sum_row["TF_higher"]),
+                         WRS_significant=bool(rank_sum_row["significant"]),
                          loo_acc=round(loo["acc"], 4),
                          loo_sens=round(loo["sens"], 4),
                          loo_spec=round(loo["spec"], 4)))
@@ -335,18 +343,18 @@ def main():
 
     out = pd.DataFrame(rows)
     out.to_csv(csv_path, index=False)
-    make_scatter(df, tw, te, scatter_png, scatter_pdf, args.assay, mw_passed=True)
-    write_conclusion(conclusion_path, args.assay, mw_table, True, args.mw_alpha,
+    make_scatter(df, tw, te, scatter_png, scatter_pdf, args.assay, rank_sum_passed=True)
+    write_conclusion(conclusion_path, args.assay, rank_sum_table, True, args.rank_alpha,
                      cutoffs={"width": tw, "enrich": te})
 
     # console summary
     sys.stderr.write(f"\n[{args.assay}]  TF n={len(tf)}  bias n={len(bi)}\n")
-    sys.stderr.write(f"Wilcoxon rank-sum gate PASSED: both features have p < {args.mw_alpha:g}.\n")
+    sys.stderr.write(f"Wilcoxon rank-sum gate PASSED: both features have p < {args.rank_alpha:g} and TF-higher direction.\n")
     with pd.option_context("display.width", 200, "display.max_columns", 30):
-        sys.stderr.write(mw_table.to_string(index=False) + "\n")
+        sys.stderr.write(rank_sum_table.to_string(index=False) + "\n")
         sys.stderr.write(out.to_string(index=False) + "\n")
     sys.stderr.write(f"\n2-D cut-off: width >= {tw:.3f} bp and E >= {te:.3f} (log2)\n")
-    sys.stderr.write(f"wrote: {mw_path}\n       {conclusion_path}\n       {csv_path}\n       {scatter_png} / .pdf\n")
+    sys.stderr.write(f"wrote: {rank_sum_path}\n       {conclusion_path}\n       {csv_path}\n       {scatter_png} / .pdf\n")
 
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 # V_plot_pipeline — Manual
 
-**Version 1.0 · 2026-06-18**
+**Version 1.1 · 2026-07-10**
 
 A pipeline that decides, for each transcription-factor (TF) motif, whether its
 V-plot reflects a **TF-footprint-like pattern** or merely **enzyme sequence-cleavage
@@ -53,8 +53,9 @@ V-plot model (see [§9 Method](#9-method)):
 TF-footprint-like V-plots have a resolvable channel (large `b`) **and** strong enrichment
 (large `E`); enzyme-bias "V"s have `b ≈ 0` and `E ≈ 0`. The final step first uses
 two-sided Wilcoxon rank-sum tests to ask whether TF motifs and bias controls differ
-significantly in both features. Only when both tests pass the configured alpha
-does the pipeline calibrate cut-offs from user-supplied bias k-mer controls and
+significantly in both features. Only when both tests pass the configured alpha and
+the TF values are higher than the bias values does the pipeline calibrate cut-offs
+from user-supplied bias k-mer controls and
 validate them by leave-one-out cross-validation (LOO). A motif is called
 TF-footprint-like only if **both** features exceed their cut-offs.
 
@@ -64,8 +65,10 @@ TF-footprint-like only if **both** features exceed their cut-offs.
 
 | Tool | Version |
 |------|---------|
+| `bash` | >= 4.0 |
 | `bedtools` | >= 2.30.0 |
 | `seqkit` | >= 2.0.0 |
+| GNU `sort` / `shuf` | coreutils >= 8.25 |
 | `python3` | >= 3.9.5 |
 | `numpy` | >= 1.22.3 |
 | `pandas` | >= 1.4.2 |
@@ -75,7 +78,7 @@ TF-footprint-like only if **both** features exceed their cut-offs.
 Versions above are those tested on our server; equal or newer should also work.
 Check yours with:
 ```bash
-command -v bedtools seqkit python3
+command -v closestBed intersectBed seqkit shuf python3
 ```
 
 ---
@@ -101,7 +104,8 @@ is ignored — `CTCF.bed`, `CTCF.motif`, … all accepted). Each file must be a
 chr    start    end    name    score    strand
 chr1   268007   268008  12      12       +
 ```
-- Column 6 (`strand`) must be `+`, `-`, or `.`.
+- Column 6 (`strand`) must be `+`, `-`, or `.`. Unstranded (`.`) sites use genomic
+  left-to-right orientation when signed distances are calculated.
 - Typically each interval is the single-base **motif centre/anchor**.
 - **Any file that is not 6-column triggers an error and stops the run** — keep the
   directory clean (motif BEDs only).
@@ -116,6 +120,9 @@ GCT
 GTG
 GTC
 ```
+Sequences are case-insensitive and may contain only `A`, `C`, `G`, and `T`.
+Blank lines and lines beginning with `#` are ignored; duplicate sequences cause an
+error rather than silently overwriting an output BED.
 
 ### 4.4 Genome FASTA (`--genome`) — **required for step 1**
 This is the genome assembly that the fragments were mapped to (e.g. `hg38.fa`).
@@ -126,6 +133,8 @@ One or more **6-column BED** files (space-separated, quoted), whose regions are
 removed from the bias sites so that a bias k-mer accidentally lying inside a real
 TF motif site cannot contaminate the bias control. Exclusion is **same-strand** and
 requires a strand column.
+Because this option is parsed as a space-separated list, BED paths used here must
+not themselves contain spaces.
 
 ---
 
@@ -162,7 +171,6 @@ bash run_pipeline.sh ... -f 5     # only re-run the rank-sum gate, scatter, and 
 | `--out` | DIR | `results` | output directory (created if absent) |
 | `--assay` | NAME | = `--mode` | label used in output names / plot title |
 | `--rank-alpha` | FLOAT | `0.05` | step-5 Wilcoxon rank-sum gate alpha; both features must pass before cut-offs are calibrated |
-| `--mw-alpha` | FLOAT | `0.05` | deprecated alias for `--rank-alpha` |
 
 ### Bias-site exclusion (step 3)
 | Option | Arg | Default | Meaning |
@@ -194,7 +202,7 @@ Preset values:
 | `--x-window` | maximum distance considered around each motif or bias site |
 | `--max-n` | cap on fragments per V-plot used in the fit (`0` = use all) |
 | `--permutations` | permutation reps for a calibrated "is there a V" p-value (`0` = off, χ² screen only) |
-| `--perm-n` | subsample size inside each permutation (`0` = all) |
+| `--perm-n` | fixed calibration-subsample size used for both the observed LR and each permutation (`0` = all) |
 
 When `--mode` is loMNase/DNase/ATAC these take the preset values in the table above;
 under `--mode custom` any option not given falls back to the ATAC preset.
@@ -212,7 +220,7 @@ under `--mode custom` any option not given falls back to the ATAC preset.
 | `-f`, `--from` | 0–5 | `0` | first step to run |
 | `-t`, `--to` | 0–5 | `5` | last step to run |
 | `-k`, `--keep` | 0 \| 1 | `1` | keep (`1`) or delete (`0`) intermediates after the run |
-| `--threads` | N | `40` | threads for `seqkit` and the model fit |
+| `--threads` | N | `40` | threads/jobs for `seqkit`, `closestBed`, and the model fit |
 | `--fragl-max` | N | none | drop fragments longer than N before distance calc (steps 2/3) |
 | `-h`, `--help` | | | print built-in help |
 
@@ -222,7 +230,7 @@ under `--mode custom` any option not given falls back to the ATAC preset.
 
 | # | Script | In → Out |
 |---|--------|----------|
-| 0 | `0_prepare_fragments.sh` | fragment BED3 → 6-col `chr mid mid+1 row fragL row` (sorted) |
+| 0 | `0_prepare_fragments.sh` | fragment BED3 → 6-col `chr mid mid+1 row fragL .` (sorted) |
 | 1 | `1_locate_bias.sh` | k-mer list + genome → one BED per k-mer (`seqkit locate`) |
 | 2 | `run_TF_scatter.sh` | TF motifs + fragments → per-TF distance file (`closestBed`) |
 | 3 | `run_bias_scatter.sh` | bias sites + fragments → per-k-mer distance file (sample / exclude TF / `closestBed`) |
@@ -252,29 +260,29 @@ One row per motif (TF) or per k-mer (bias). Key columns:
 | `se_apex_*`, `apex_*_lo/hi` | standard errors / 95% CI of the apex |
 | `status` | `ok`, or a reason the motif was skipped |
 
-### 8.2 `<ASSAY>_methodB_mw_test.csv`
-Wilcoxon rank-sum gate before cut-off calibration. The filename and `MW_p`
-column are retained for backward compatibility with earlier pipeline outputs; `WRS_p`
-is the preferred public-facing p-value name.
+### 8.2 `<ASSAY>_rank_sum_test.csv`
+Wilcoxon rank-sum gate before cut-off calibration.
 
 | Column | Meaning |
 |--------|---------|
 | `feature` | `V-channel width` or `log2(V-in/V-out)` |
 | `median_TF` / `median_bias` | group medians |
-| `U`, `WRS_p`, `MW_p` | Wilcoxon rank-sum / Mann-Whitney U statistic and p-value |
+| `WRS_statistic`, `WRS_p` | TF-group rank sum and two-sided Wilcoxon rank-sum p-value |
 | `AUC` | rank-sum AUC (1.0 = perfect separation) |
+| `TF_higher` | whether the TF median and AUC both indicate larger TF values |
 | `alpha` | configured significance threshold |
 | `significant` | whether `WRS_p < alpha` |
+| `gate_passed` | whether the feature is significant and `TF_higher = True` |
 
-Both features must be significant before the pipeline calibrates cut-offs.
+Both features must pass the gate before the pipeline calibrates cut-offs.
 
-### 8.3 `<ASSAY>_methodB_conclusion.txt`
+### 8.3 `<ASSAY>_conclusion.txt`
 A short text conclusion stating whether the rank-sum gate passed. If it failed, no
 cut-offs are calibrated.
 
-### 8.4 `<ASSAY>_methodB_cutoffs.csv`
+### 8.4 `<ASSAY>_cutoffs.csv`
 The learned thresholds and their validation. If the rank-sum gate fails, this file is
-still written, but `status = no_cutoff_MW_gate_failed` and `cutoff` is blank.
+still written, but `status = no_cutoff_rank_sum_gate_failed` and `cutoff` is blank.
 
 | Column | Meaning |
 |--------|---------|
@@ -283,10 +291,10 @@ still written, but `status = no_cutoff_MW_gate_failed` and `cutoff` is blank.
 | `margin` | half the gap between the highest bias and the lowest TF |
 | `separable` | whether bias and TF are perfectly separated on this feature |
 | `auc` | rank-sum AUC (1.0 = perfect separation) |
-| `WRS_p` / `MW_p` / `MW_significant` | feature-level rank-sum test result used by the gate (`MW_p` retained for compatibility) |
+| `WRS_p` / `WRS_significant` / `TF_higher` | feature-level rank-sum result used by the gate |
 | `loo_acc` / `loo_sens` / `loo_spec` | leave-one-out accuracy / sensitivity / specificity |
 
-### 8.5 `<ASSAY>_methodB_scatter.png` / `.pdf`
+### 8.5 `<ASSAY>_scatter.png` / `.pdf`
 Scatter of **V-channel width (x)** vs **log2(V-in/V-out) (y)**, TF motifs as filled
 blue points, bias k-mers as open red points. If the rank-sum gate passes, dashed lines
 mark the two cut-offs and the shaded **upper-right region = TF-footprint-like**
@@ -295,9 +303,8 @@ cut-off lines.
 
 ### 8.6 Interpreting the result
 - **First check the Wilcoxon rank-sum gate**: both features must have `WRS_p < alpha`
-  (or the legacy `MW_p < alpha`). If not, the
-  conclusion file reports that TF and bias controls are not significantly different
-  in both required features and no cut-off should be used.
+  and `TF_higher = True`. If not, the conclusion file reports that the required
+  TF-higher result was not established and no cut-off should be used.
 - **TF-footprint-like call**: a motif is called TF-footprint-like when `width ≥ width-cutoff` **and**
   `E ≥ E-cutoff` (it lands in the shaded region).
 - **Good separation** looks like: bias points clustered near the origin
@@ -333,12 +340,10 @@ two fitted graphical features, V-channel width and inside-V enrichment:
 
 - **Wilcoxon rank-sum gate**: two-sided Wilcoxon rank-sum tests first compare TF motifs
   with bias controls for V-channel width and inside-V enrichment separately.
-  The script implements this with SciPy's equivalent Mann-Whitney U test and keeps
-  `MW_p` as a legacy column name.
-  Cut-offs are calibrated only if both features have `p < alpha` (default
-  `0.05`). If either test fails, the pipeline reports that TF and bias controls
-  are not significantly different in both required features and does not assign
-  cut-offs.
+  Cut-offs are calibrated only if both features have `p < alpha` (default `0.05`)
+  and the TF values are higher than the bias values. This direction check is needed
+  because the final classification rule assumes that larger values are more
+  TF-footprint-like. If either feature fails, the pipeline does not assign cut-offs.
 - **Cut-off calibration**: when the rank-sum gate passes, each feature cut-off
   is chosen as the Youden threshold, the value maximizing sensitivity + specificity
   - 1 on the training data. If the two groups are fully separated, this threshold

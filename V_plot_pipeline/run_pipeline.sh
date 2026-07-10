@@ -1,7 +1,7 @@
 #!/bin/bash
 # =====================================================================
-# V_plot_pipeline driver: from an ATAC fragment bed to the 2-D cut-offs + scatter plot
-# Version 1.0 (2026-06-18) - full documentation in MANUAL.md
+# V_plot_pipeline driver: fragment BED to TF-versus-bias cut-offs and scatter plot
+# Version 1.1 (2026-07-10) - full documentation in MANUAL.md
 #
 #   [0] prepare_fragments  raw fragments (3 cols) -> midpoint+length (6 cols)
 #   [1] locate_bias        bias k-mer + genome fa -> bias coordinate beds
@@ -42,7 +42,6 @@
 #   --shuf-seed N|none   bias sampling seed (default 42, reproducible; none = true random)
 #   --fragl-max N        fragment-length cap (default: no filter)
 #   --rank-alpha A       Wilcoxon rank-sum gate alpha for step 5 (default 0.05; both features must pass)
-#   --mw-alpha A         deprecated alias for --rank-alpha
 #   custom fit params: --apex-x-lo --apex-x-hi --apex-y-lo --apex-y-hi
 #                      --frag-min --frag-max --x-window --max-n --permutations --perm-n
 #
@@ -50,8 +49,8 @@
 #           TF motif = 6-col BED (chr start end name score strand, strand +/-/.; non-6-col aborts);
 #           bias-kmers = one sequence per line; exclude-tf = 6-col BED (one or more).
 # Output (--out dir): <ASSAY>_TF_apex.tsv / _bias_apex.tsv,
-#           <ASSAY>_methodB_mw_test.csv, <ASSAY>_methodB_conclusion.txt,
-#           <ASSAY>_methodB_cutoffs.csv, <ASSAY>_methodB_scatter.png/.pdf;
+#           <ASSAY>_rank_sum_test.csv, <ASSAY>_conclusion.txt,
+#           <ASSAY>_cutoffs.csv, <ASSAY>_scatter.png/.pdf;
 #           intermediates in --out/intermediate/ (add -k 0 to delete after the run).
 # Dependencies: bedtools(closestBed/intersectBed), seqkit, python3(numpy/pandas/matplotlib/scipy)
 # =====================================================================
@@ -85,7 +84,6 @@ while [[ $# -gt 0 ]]; do
         --shuf-seed)         OV[SHUF_SEED]="$2"; shift 2 ;;
         --fragl-max)         OV[FRAGL_MAX]="$2"; shift 2 ;;
         --rank-alpha)        OV[RANK_ALPHA]="$2"; shift 2 ;;
-        --mw-alpha)          OV[RANK_ALPHA]="$2"; shift 2 ;;
         --out)               OV[OUTDIR]="$2"; shift 2 ;;
         --apex-x-lo)         OV[APEX_X_LO]="$2"; shift 2 ;;
         --apex-x-hi)         OV[APEX_X_HI]="$2"; shift 2 ;;
@@ -123,7 +121,22 @@ fi
 [[ -n "$KEEP_CLI" ]] && KEEP_INTERMEDIATE="$KEEP_CLI"
 KEEP_INTERMEDIATE="${KEEP_INTERMEDIATE:-1}"
 ASSAY="${ASSAY:-$MODE}"      # naming/title defaults to MODE
-RANK_ALPHA="${RANK_ALPHA:-${MW_ALPHA:-0.05}}"  # compatibility with older config.sh files
+RANK_ALPHA="${RANK_ALPHA:-0.05}"
+
+[[ "$FROM" =~ ^[0-5]$ && "$TO" =~ ^[0-5]$ ]] || {
+    echo "ERROR: --from and --to must be integers from 0 to 5" >&2; exit 1;
+}
+(( FROM <= TO )) || { echo "ERROR: --from must be less than or equal to --to" >&2; exit 1; }
+[[ "$KEEP_INTERMEDIATE" =~ ^[01]$ ]] || { echo "ERROR: --keep must be 0 or 1" >&2; exit 1; }
+[[ "$THREADS" =~ ^[1-9][0-9]*$ ]] || { echo "ERROR: --threads must be a positive integer" >&2; exit 1; }
+[[ "$ASSAY" =~ ^[A-Za-z0-9._-]+$ ]] || {
+    echo "ERROR: --assay may contain only letters, numbers, '.', '_' and '-'" >&2; exit 1;
+}
+[[ -n "$OUTDIR" ]] || { echo "ERROR: --out must not be empty" >&2; exit 1; }
+awk -v x="$RANK_ALPHA" 'BEGIN {
+    ok = (x ~ /^[0-9]*[.]?[0-9]+([eE][-+]?[0-9]+)?$/ && x > 0 && x < 1)
+    exit !ok
+}' || { echo "ERROR: --rank-alpha must be a number between 0 and 1" >&2; exit 1; }
 
 run_step() { [[ "$FROM" -le "$1" && "$TO" -ge "$1" ]]; }
 
@@ -196,14 +209,16 @@ fi
 # ---- [2] TF V-plot ----
 if run_step 2; then
     echo ">>> [2] run_TF_scatter"
-    bash "$HERE/run_TF_scatter.sh" -i "$TF_MOTIF_DIR" -a "$FRAG_MIDP" -o "$TF_DIST_DIR" "${MFLAG[@]}"
+    bash "$HERE/run_TF_scatter.sh" -i "$TF_MOTIF_DIR" -a "$FRAG_MIDP" -o "$TF_DIST_DIR" \
+        -j "$THREADS" "${MFLAG[@]}"
 fi
 
 # ---- [3] bias V-plot ----
 if run_step 3; then
     echo ">>> [3] run_bias_scatter"
     bash "$HERE/run_bias_scatter.sh" -i "$BIAS_BED_DIR" -a "$FRAG_MIDP" -o "$BIAS_DIST_DIR" \
-        -x "$EXCLUDE_TF_BEDS" -f "$EXCLUDE_FLANK" -n "$SHUF_N" -S "$SHUF_SEED" "${MFLAG[@]}"
+        -x "$EXCLUDE_TF_BEDS" -f "$EXCLUDE_FLANK" -n "$SHUF_N" -S "$SHUF_SEED" \
+        -j "$THREADS" "${MFLAG[@]}"
 fi
 
 # ---- [4] fit apex ----
@@ -228,7 +243,7 @@ fi
 if run_step 5; then
     echo ">>> [5] scatter_cutoffs"
     python3 "$HERE/5_scatter_cutoffs.py" --tf "$TF_APEX" --bias "$BIAS_APEX" \
-        --out-prefix "$OUTDIR/${ASSAY}_methodB" --assay "$ASSAY" \
+        --out-prefix "$OUTDIR/${ASSAY}" --assay "$ASSAY" \
         --rank-alpha "$RANK_ALPHA"
 fi
 

@@ -2,7 +2,7 @@
 # Step 0: raw fragment bed (3 cols) -> midpoint + fragment-length bed (6 cols, sorted)
 #
 # closestBed needs not the raw 3-col fragments but a 6-col file:
-#   chr  midP  midP+1  name  fragL  strand
+#   chr  midP  midP+1  name  fragL  .
 # where midP = int((start+end)/2) and fragL = end-start.
 # This step converts a 3-col file (e.g. fragment_bed/*.bed) to that format and sorts it.
 #
@@ -40,6 +40,19 @@ done
 
 [[ -z "$IN" || -z "$OUT" ]] && { echo "ERROR: -i and -o are required" >&2; usage 1; }
 [[ -f "$IN" ]] || { echo "ERROR: input fragment file not found: $IN" >&2; exit 1; }
+[[ "$LMIN" =~ ^[0-9]+$ ]] || { echo "ERROR: -M must be a non-negative integer" >&2; exit 1; }
+if [[ -n "$LMAX" ]]; then
+    [[ "$LMAX" =~ ^[0-9]+$ ]] || { echo "ERROR: -m must be a non-negative integer" >&2; exit 1; }
+    (( LMAX >= LMIN )) || { echo "ERROR: -m must be greater than or equal to -M" >&2; exit 1; }
+fi
+
+# Validate every data row before creating a partial output.
+awk '
+    /^[[:space:]]*#/ || /^[[:space:]]*$/ { next }
+    NF < 3 || $2 !~ /^[0-9]+$/ || $3 !~ /^[0-9]+$/ || $3 < $2 { bad=1; exit }
+    { seen=1 }
+    END { exit !(seen && !bad) }
+' "$IN" || { echo "ERROR: input must be a non-empty BED3+ file with integer start <= end" >&2; exit 1; }
 mkdir -p "$(dirname "$OUT")"      # create output dir if it does not exist
 
 # fragment-length upper bound: always true when -m is not given
@@ -50,9 +63,10 @@ echo "output file     : $OUT"
 echo "fragment length : [${LMIN}, ${LMAX_SHOW}]"
 echo "-----------------------------------------------"
 
-# 6 cols: chr  mid  mid+1  rownum  fragLen  rownum   (mid=int((start+end)/2), fragL=end-start)
+# 6 cols: chr  mid  mid+1  rownum  fragLen  .   (mid=int((start+end)/2), fragL=end-start)
 awk -v lmin="$LMIN" -v lmax="$LMAX" \
-    "{ fl=\$3-\$2; if(fl>=lmin && $UP){ mid=int((\$2+\$3)/2); print \$1, mid, mid+1, NR, fl, NR } }" \
+    "/^[[:space:]]*#/ || /^[[:space:]]*$/ {next}
+     { fl=\$3-\$2; if(fl>=lmin && $UP){ mid=int((\$2+\$3)/2); print \$1, mid, mid+1, ++n, fl, \".\" } }" \
     OFS='\t' "$IN" | \
 sort -k1,1 -k2,2n -S 80% > "$OUT"
 

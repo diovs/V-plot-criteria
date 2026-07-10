@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-fit_vplot_apex.py  -- Method B: generative-model V-plot apex finder.
+fit_vplot_apex.py -- V-plot model apex finder.
 
 For each input file (= one V-plot; one TF or one bias motif), fit a mixture
 model of a V-cone signal + uniform background by maximum likelihood, and report
@@ -180,26 +180,36 @@ def fit_apex(x, y, X, tau, w_floor, seed=1, ax_lo=-10.0, ax_hi=10.0,
 # ---------------------------------------------------------------------------
 def permutation_p(x, y, X, tau, w_floor, obs_LR, n_perm, perm_n, seed,
                   ax_lo=-10.0, ax_hi=10.0, ay_lo=None, ay_hi=None):
-    """Shuffle distance (x) to break the V, refit, collect LR null. Empirical p."""
+    """Shuffle distance (x) to break the V, refit, collect LR null. Empirical p.
+
+    If perm_n requests a subset, the same without-replacement subset is used for
+    both the observed calibration LR and every permutation. This keeps the test
+    statistic comparable at a fixed sample size.
+    """
     rng = np.random.default_rng(seed)
     n = len(x)
+    if perm_n > 0 and perm_n < n:
+        idx = rng.choice(n, perm_n, replace=False)
+        x_cal = x[idx]
+        y_cal = y[idx]
+        observed_fit = fit_apex(x_cal, y_cal, X, tau, w_floor, seed=seed,
+                                ax_lo=ax_lo, ax_hi=ax_hi,
+                                ay_lo=ay_lo, ay_hi=ay_hi)
+        observed_lr = observed_fit["LR"] if observed_fit is not None else 0.0
+    else:
+        x_cal = x
+        y_cal = y
+        observed_lr = obs_LR
+
     exceed = 0
     null_LR = np.empty(n_perm)
     for p in range(n_perm):
-        if perm_n > 0 and perm_n < n:
-            idx = rng.integers(0, n, perm_n)
-            ys = y[idx]
-            xs = rng.permutation(x[idx])
-            Xn = perm_n
-        else:
-            ys = y
-            xs = rng.permutation(x)
-            Xn = n
-        fit = fit_apex(xs, ys, X, tau, w_floor, seed=seed + p,
+        xs = rng.permutation(x_cal)
+        fit = fit_apex(xs, y_cal, X, tau, w_floor, seed=seed + p,
                        ax_lo=ax_lo, ax_hi=ax_hi, ay_lo=ay_lo, ay_hi=ay_hi)
         lr = fit["LR"] if fit is not None else 0.0
         null_LR[p] = lr
-        if lr >= obs_LR:
+        if lr >= observed_lr:
             exceed += 1
     emp_p = (1 + exceed) / (1 + n_perm)
     return emp_p, null_LR
@@ -251,6 +261,8 @@ def load_file(path, frag_min, frag_max, X, header, max_n, seed):
 
 def process(path, args):
     name = os.path.splitext(os.path.basename(path))[0]
+    if name.endswith("_fragL_dist"):
+        name = name[:-len("_fragL_dist")]
     try:
         x, y = load_file(path, args.frag_min, args.frag_max, args.x_window,
                          args.header, args.max_n, args.seed)
@@ -305,7 +317,7 @@ def gather_inputs(inp, pattern):
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Method B: generative V-plot apex finder")
+    ap = argparse.ArgumentParser(description="Fit the V-plot model and estimate its apex")
     ap.add_argument("--input", required=True, help="file, or directory (use --glob)")
     ap.add_argument("--glob", default="*_fragL_dist.txt", help="pattern when --input is a dir")
     ap.add_argument("--output", default="vplot_apex_scores.tsv")
@@ -330,10 +342,30 @@ def main():
     ap.add_argument("--seed", type=int, default=1)
     args = ap.parse_args()
 
+    if not os.path.exists(args.input):
+        ap.error(f"--input does not exist: {args.input}")
+    if args.frag_min > args.frag_max:
+        ap.error("--frag-min must be less than or equal to --frag-max")
+    if args.x_window <= 0:
+        ap.error("--x-window must be positive")
+    if args.apex_x_lo >= args.apex_x_hi:
+        ap.error("--apex-x-lo must be less than --apex-x-hi")
+    if (args.apex_y_lo is not None and args.apex_y_hi is not None and
+            args.apex_y_lo >= args.apex_y_hi):
+        ap.error("--apex-y-lo must be less than --apex-y-hi")
+    if args.tau <= 0 or args.w_floor <= 0 or args.w_floor >= args.x_window:
+        ap.error("--tau must be positive and --w-floor must be between 0 and --x-window")
+    if args.max_n < 0 or args.min_n < 1 or args.permutations < 0 or args.perm_n < 0:
+        ap.error("--max-n/--permutations/--perm-n must be non-negative and --min-n must be positive")
+    if args.permutations > 0 and 0 < args.perm_n < args.min_n:
+        ap.error("when permutations are enabled, --perm-n must be 0 or at least --min-n")
+    if args.cores < 1:
+        ap.error("--cores must be a positive integer")
+
     files = gather_inputs(args.input, args.glob)
     if not files:
         sys.exit("No input files matched.")
-    sys.stderr.write(f"Scoring {len(files)} file(s); objective = generative LRT.\n")
+    sys.stderr.write(f"Scoring {len(files)} file(s) with the V-plot mixture model.\n")
 
     if args.cores > 1 and len(files) > 1:
         import multiprocessing as mp
@@ -346,8 +378,12 @@ def main():
     if "p_perm" in out and out["p_perm"].notna().any():
         out["q_perm"] = _bh(out["p_perm"].values)
     out["q_chi2"] = _bh(out["p_chi2"].values) if "p_chi2" in out else np.nan
+    output_dir = os.path.dirname(os.path.abspath(args.output))
+    os.makedirs(output_dir, exist_ok=True)
     out.to_csv(args.output, sep="\t", index=False, na_rep="NA")
     sys.stderr.write(f"Wrote {args.output}\n")
+    if "status" not in out or not (out["status"] == "ok").any():
+        sys.exit("No V-plot could be fitted successfully; inspect the status column.")
     # short console summary
     cols = [c for c in ["motif", "n", "apex_x", "apex_y_channel_width",
                         "se_apex_x", "se_apex_y", "pi_enrichment", "LR",

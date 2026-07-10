@@ -18,7 +18,7 @@ EXCLUDE_FLANK=12              # bp added to each side of every motif (bias & mot
 # ---- general parameters ----
 MODE="ATAC"                  # fitting preset: loMNase / DNase / ATAC / custom
 ASSAY=""                     # plot title / output naming; empty = use the MODE name
-THREADS=40                   # parallelism for seqkit / fit
+THREADS=40                   # seqkit threads / concurrent closestBed jobs / fit processes
 SHUF_N=200000               # bias-site subsample size (step 3); 0/all = no subsampling, use all sites
 SHUF_SEED=42                 # bias-sampling random seed (fixed = reproducible; none = true random)
 FRAGL_MAX=""                 # fragment-length cap; empty = no filter (before closest in steps 2/3)
