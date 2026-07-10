@@ -11,9 +11,8 @@ with enzyme-bias controls.
 | --- | --- |
 | `Fig1/` | Figure 1 scripts and inputs. |
 | `Fig2/` | Figure 2 scripts and input tables. |
-| `FigS1/`-`FigS3/` | Supplementary figure scripts and inputs. |
-| `FigS4-6/` | Single-panel V-plot plotting script. |
-| `FigS7/` | Notes for the motif-logo-over-V-plot montage. |
+| `FigS2/`-`FigS4/` | Supplementary figure scripts and inputs. |
+| `FigS5-7/` | Single-panel V-plot plotting script. |
 | `FigS8/` | Scrambled CTCF motif control scripts and inputs. |
 | `V_plot_pipeline/` | Standalone TF-vs-bias V-plot pipeline. |
 | `data_preprocessing.sh` | Fragment preprocessing helper. |
