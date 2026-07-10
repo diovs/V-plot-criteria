@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Plot Fig. S3D: cut-off derivation for the two V-plot features.
+"""Plot Fig. S4D: cut-off derivation for the two V-plot features.
 
 The panel shows, for each assay, TF motif values and matched enzyme-bias values.
 The shaded interval is the separation gap between the highest bias value and
@@ -22,7 +22,7 @@ from matplotlib.patches import Rectangle
 
 
 ROOT = Path(__file__).resolve().parent
-DEFAULT_PREFIX = ROOT / "FigS3D_cutoff_derivation"
+DEFAULT_PREFIX = ROOT / "FigS4D_cutoff_derivation"
 ASSAYS = ("loMNase", "DNase", "ATAC")
 
 BLUE = "#1f5a93"
@@ -42,9 +42,9 @@ def save_formats(fig: plt.Figure, prefix: Path, formats: list[str], dpi: int) ->
 
 
 def load_inputs(root: Path) -> tuple[pd.DataFrame, dict[str, pd.DataFrame]]:
-    thresholds = pd.read_csv(root / "FigS3D_cutoff_thresholds.csv")
+    thresholds = pd.read_csv(root / "FigS4D_cutoff_thresholds.csv")
     assay_tables = {
-        assay: pd.read_csv(root / f"FigS3D_plot_data_best_{assay}.csv")
+        assay: pd.read_csv(root / f"FigS4D_plot_data_best_{assay}.csv")
         for assay in ASSAYS
     }
     return thresholds, assay_tables
@@ -172,7 +172,7 @@ def plot_cutoffs(input_root: Path, out_prefix: Path, formats: list[str], dpi: in
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--input-root", type=Path, default=ROOT, help="Directory containing FigS3D CSV files.")
+    parser.add_argument("--input-root", type=Path, default=ROOT, help="Directory containing FigS4D CSV files.")
     parser.add_argument("--out-prefix", type=Path, default=DEFAULT_PREFIX, help="Output path without extension.")
     parser.add_argument("--formats", default="png,pdf", help="Comma-separated output formats.")
     parser.add_argument("--dpi", type=int, default=300, help="Raster output DPI.")

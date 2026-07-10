@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Plot Fig. S3C: loMNase apex-position likelihood profile.
+"""Plot Fig. S4C: loMNase apex-position likelihood profile.
 
 This panel uses a precomputed likelihood scan from the Vplot model. For each
 candidate apex x-position, the curve shows the relative log-likelihood per
@@ -21,8 +21,8 @@ import pandas as pd
 
 
 ROOT = Path(__file__).resolve().parent
-DEFAULT_INPUT = ROOT / "FigS3C_real_loMNase_apex_likelihood_profiles.csv"
-DEFAULT_PREFIX = ROOT / "FigS3C_loMNase_apex_likelihood"
+DEFAULT_INPUT = ROOT / "FigS4C_real_loMNase_apex_likelihood_profiles.csv"
+DEFAULT_PREFIX = ROOT / "FigS4C_loMNase_apex_likelihood"
 
 BLUE = "#1f5a93"
 ORANGE = "#d46b32"

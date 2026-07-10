@@ -1,10 +1,10 @@
 #!/usr/bin/env Rscript
-## Plot one V-plot panel for Fig. S4-S6.
+## Plot one V-plot panel for Fig. S5-S7.
 ##
 ## Input format is the pipeline *_fragL_dist.txt table:
 ##   site_id    fragment_length    signed_distance
 ##
-## Fig. S4: loMNase, Fig. S5: DNase, Fig. S6: ATAC.
+## Fig. S5: loMNase, Fig. S6: DNase, Fig. S7: ATAC.
 
 suppressMessages({
   library(data.table)
@@ -68,9 +68,9 @@ usage <- function(status = 0) {
     "  --xlim MIN,MAX --ylim MIN,MAX --xbreaks A,B,C --ybreaks A,B,C --width W --height H\n\n",
     "Examples:\n",
     "  Rscript plot_single_vplot_panel.R --input CTCF_loMNase_fragL_dist.txt --assay loMNase \\\n",
-    "      --title CTCF --apex-x -1.69 --apex-y 31.13 --channel true --output-prefix S4_CTCF\n",
+    "      --title CTCF --apex-x -1.69 --apex-y 31.13 --channel true --output-prefix S5_CTCF\n",
     "  Rscript plot_single_vplot_panel.R --input MNase_Bias_AAG_loMNase_fragL_dist.txt --assay loMNase \\\n",
-    "      --title AAG --channel false --output-prefix S4_AAG\n",
+    "      --title AAG --channel false --output-prefix S5_AAG\n",
     sep = ""
   )
   quit(save = "no", status = status)
