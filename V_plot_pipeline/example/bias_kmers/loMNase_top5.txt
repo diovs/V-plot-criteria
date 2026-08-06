@@ -1,5 +1,5 @@
-AAG
 AGA
-AGC
-AGG
+AGT
 TGG
+AAG
+ACA

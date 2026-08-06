@@ -4,7 +4,7 @@ Criterion: both features must have two-sided rank-sum p < 0.05, with TF values h
 
 Feature-level tests:
 - V-channel width (bp): p=0.0316, AUC=0.900, median_TF=40.28, median_bias=0, TF_higher=True, gate_passed=True
-- log2(V-in/V-out): p=0.00433, AUC=1.000, median_TF=0.8989, median_bias=0.05224, TF_higher=True, gate_passed=True
+- log2(V-in/V-out): p=0.00433, AUC=1.000, median_TF=0.8989, median_bias=0.1522, TF_higher=True, gate_passed=True
 
 Conclusion: TF motifs are significantly higher than bias controls in both features; cut-offs were calibrated.
-2-D rule: V-channel width >= 9.468 bp AND log2(V-in/V-out) >= 0.6142.
+2-D rule: V-channel width >= 9.468 bp AND log2(V-in/V-out) >= 0.6165.

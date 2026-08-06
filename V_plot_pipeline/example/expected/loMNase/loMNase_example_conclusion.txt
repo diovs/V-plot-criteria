@@ -3,8 +3,8 @@ Wilcoxon rank-sum gate: PASS
 Criterion: both features must have two-sided rank-sum p < 0.05, with TF values higher than bias values.
 
 Feature-level tests:
-- V-channel width (bp): p=0.0222, AUC=0.933, median_TF=27.31, median_bias=1.55e-05, TF_higher=True, gate_passed=True
-- log2(V-in/V-out): p=0.00866, AUC=0.967, median_TF=1.355, median_bias=0.06273, TF_higher=True, gate_passed=True
+- V-channel width (bp): p=0.00674, AUC=1.000, median_TF=27.31, median_bias=0, TF_higher=True, gate_passed=True
+- log2(V-in/V-out): p=0.00433, AUC=1.000, median_TF=1.355, median_bias=0.1141, TF_higher=True, gate_passed=True
 
 Conclusion: TF motifs are significantly higher than bias controls in both features; cut-offs were calibrated.
-2-D rule: V-channel width >= 17.67 bp AND log2(V-in/V-out) >= 0.7015.
+2-D rule: V-channel width >= 9.126 bp AND log2(V-in/V-out) >= 0.2925.

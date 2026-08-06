@@ -75,9 +75,9 @@ The five assay-matched cleavage-bias sequences are:
 
 | Assay | Bias k-mers |
 |---|---|
-| loMNase | AAG, AGA, AGC, AGG, TGG |
-| DNase | CCC, TGA, TGC, TGG, TGT |
-| ATAC | GCC, GCT, GGC, GGG, GTG |
+| loMNase | AGA, AGT, TGG, AAG, ACA |
+| DNase | TCC, TGT, TGG, TGA, TGC |
+| ATAC | GCT, GTC, GCC, GGC, GTG |
 
 ## Data provenance
 
@@ -106,9 +106,9 @@ test-specific two-dimensional cut-offs:
 
 | Assay | Width cut-off (bp) | E cut-off (`log2(V-in/V-out)`) |
 |---|---:|---:|
-| loMNase | 17.674 | 0.701 |
-| DNase | 6.154 | 0.523 |
-| ATAC | 9.468 | 0.614 |
+| loMNase | 9.126 | 0.293 |
+| DNase | 6.726 | 0.649 |
+| ATAC | 9.468 | 0.617 |
 
 These files are intended as an installation and input-format test. They are a
 small genomic subset and should not replace whole-genome data for estimating

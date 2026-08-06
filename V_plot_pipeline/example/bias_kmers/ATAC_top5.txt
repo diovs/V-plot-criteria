@@ -1,5 +1,5 @@
-GCC
 GCT
+GTC
+GCC
 GGC
-GGG
 GTG
