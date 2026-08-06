@@ -1,0 +1,11 @@
+*.gitattributes text eol=lf
+*.gitignore text eol=lf
+*.sh text eol=lf
+*.py text eol=lf
+*.R text eol=lf
+*.md text eol=lf
+*.bed text eol=lf
+*.fa text eol=lf
+*.txt text eol=lf
+*.tsv text eol=lf
+*.csv text eol=lf

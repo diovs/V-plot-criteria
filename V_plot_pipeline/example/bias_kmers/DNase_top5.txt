@@ -1,0 +1,5 @@
+CCC
+TGA
+TGC
+TGG
+TGT

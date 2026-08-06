@@ -31,6 +31,20 @@ All parameters can be passed on the command line (shown above) **or** placed in
 file, copy `config.example.sh` to `config.sh` and edit the paths. Either command-line
 arguments or a config file may be used.
 
+### Bundled test run
+
+Small real-data examples for loMNase-seq, DNase-seq, and ATAC-seq are provided
+under `example/`. They include BED3 fragments, BED6 TF anchors, bias k-mer lists,
+a 2-Mb hg38 test contig, and validated reference outputs:
+
+```bash
+cd example
+bash run_examples.sh
+python3 verify_expected.py
+```
+
+See `example/README.md` for provenance, input counts, and interpretation.
+
 ---
 
 ## 2. Description

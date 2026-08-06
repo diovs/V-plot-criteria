@@ -18,7 +18,9 @@ with enzyme-bias controls.
 | `data_preprocessing.sh` | Fragment preprocessing helper. |
 | `loMNase_mapping_pipeline.sh` | loMNase-seq mapping helper. |
 
-Generated figure images and large sequencing files are not included.
+Manuscript figure images and full-size sequencing files are not included. Small
+validated pipeline test inputs and outputs are provided under
+`V_plot_pipeline/example/`.
 
 ## V_plot_pipeline
 
@@ -27,6 +29,20 @@ V-plot criteria to new data. It takes fragment BED files, TF motif coordinates,
 and bias k-mers, then reports V-channel width, `log2(Vin / Vout)`, statistical
 tests, and cut-offs. Full options are documented in
 [`V_plot_pipeline/MANUAL.md`](V_plot_pipeline/MANUAL.md).
+
+### Bundled Test Run
+
+Small K562 loMNase-seq, DNase-seq, and merged ATAC-seq examples are included
+with validated reference outputs:
+
+```bash
+cd V_plot_pipeline/example
+bash run_examples.sh
+python3 verify_expected.py
+```
+
+Input schemas, data provenance, and expected cut-offs are documented in
+[`V_plot_pipeline/example/README.md`](V_plot_pipeline/example/README.md).
 
 ### Quick Start
 

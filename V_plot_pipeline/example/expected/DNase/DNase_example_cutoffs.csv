@@ -1,0 +1,4 @@
+feature,cutoff,margin,separable,auc,WRS_p,TF_higher,WRS_significant,loo_acc,loo_sens,loo_spec
+V-channel width (bp),6.1536,6.1528,True,1.0,0.006735947344953688,True,True,1.0,1.0,1.0
+log2(V-in/V-out),0.5227,0.4045,True,1.0,0.004329004329004329,True,True,1.0,1.0,1.0
+2D rule (width AND E),width>=6.154 & E>=0.523,,,,,,,1.0,1.0,1.0
